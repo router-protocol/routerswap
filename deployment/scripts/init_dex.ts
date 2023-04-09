@@ -28,7 +28,7 @@ async function main() {
   }
 
   
-  const dexSetupFilePath = "config/address.json";
+  const dexSetupFilePath = "config/dex.json";
   const dexSetup = JSON.parse(fs.readFileSync(dexSetupFilePath, "utf-8"));
   console.log(dexSetup)
 
@@ -84,8 +84,8 @@ async function main() {
     dexSetup[network] = {};
   }
   dexSetup[network]["routerSwapFactory"] = {
-    "addr": swapFactoryCodeId,
-    "code_id": swapFactoryAddr
+    "addr": swapFactoryAddr,
+    "code_id": swapFactoryCodeId
   };
   dexSetup[network]["routerSwapPair"] = {
     "addr": "",
