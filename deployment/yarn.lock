@@ -1098,18 +1098,18 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@routerprotocol/chain-api@^1.1.22":
-  version "1.1.22"
-  resolved "https://registry.yarnpkg.com/@routerprotocol/chain-api/-/chain-api-1.1.22.tgz#75bd81c958d45467cb0d0691998561045dc8f3ff"
-  integrity sha512-evT3cZABIU1+IvJnsWRveDmxtCb5y7iQE71od1/CWQaiXg4j6js+wfLWFh5ueOvNTiX86LzxSS67CuGMHOHI8Q==
+"@routerprotocol/chain-api@^1.1.62":
+  version "1.1.62"
+  resolved "https://registry.yarnpkg.com/@routerprotocol/chain-api/-/chain-api-1.1.62.tgz#50be5322df87dbc8a1666ebdc9974f156886eb5f"
+  integrity sha512-tHmD3sTQpT8XwidsT4CGz5bHnw3/A2QvHrb1Ielp/+seikRIi0ltVbpWPAwjtf9tEjoQg732+cau/J+yLzfcTA==
   dependencies:
     "@improbable-eng/grpc-web" "^0.13.0"
     google-protobuf "^3.13.0"
 
-"@routerprotocol/router-chain-sdk-ts@^0.7.91":
-  version "0.7.112"
-  resolved "https://registry.yarnpkg.com/@routerprotocol/router-chain-sdk-ts/-/router-chain-sdk-ts-0.7.112.tgz#35cbd0f46994edc0db2334289d810d2a20b04f37"
-  integrity sha512-jf6Wzpk92MlJdls0N8ilBcQBSl1S3NIIOIxCk4Ax9xlbFLfWoNCPVLcR+ei641Pe4YXjqgGWcB92UmWQc7nAPw==
+"@routerprotocol/router-chain-sdk-ts@^0.8.9":
+  version "0.8.34"
+  resolved "https://registry.yarnpkg.com/@routerprotocol/router-chain-sdk-ts/-/router-chain-sdk-ts-0.8.34.tgz#857d05fea0d224cba24ad07db066310859263133"
+  integrity sha512-tQu9ux2Hm/249FnxJcEdGjmBAX62y52munvc/kD2INA1fSm+J8EID464gn2IxBSDfvF251DvYZag3ci206acZQ==
   dependencies:
     "@alch/alchemy-web3" "1.4.7"
     "@apollo/client" "^3.5.8"
@@ -1133,7 +1133,7 @@
     "@ledgerhq/hw-transport-webhid" "6.27.1"
     "@ledgerhq/hw-transport-webusb" "6.27.1"
     "@metamask/eth-sig-util" "^4.0.1"
-    "@routerprotocol/chain-api" "^1.1.22"
+    "@routerprotocol/chain-api" "^1.1.62"
     "@types/eth-sig-util" "^2.1.1"
     "@types/ethereumjs-util" "^6.1.0"
     "@types/hdkey" "^2.0.1"

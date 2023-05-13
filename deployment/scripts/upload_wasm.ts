@@ -60,21 +60,10 @@ export const upload_wasm_code = async function (network: Network, privateKeyHash
         txRaw.setSignaturesList([""]);
         simulationResponse = await grpcClient.simulate(txRaw);
     }
-    let amount = new BigNumberInBase(500000001)
-        .times(
-            parseInt(
-                (
-                    simulationResponse.gasInfo.gasUsed * 1.3
-                ).toString()
-            )
-        )
-        .toString();
-    let gas = parseInt(
-        (
-            simulationResponse.gasInfo.gasUsed * 1.3
-        ).toString()
-    ).toString();
-    console.log(amount, gas)
+    let gas = parseInt((simulationResponse.gasInfo.gasUsed * 1.3).toString()).toString();
+    let amount = new BigNumberInBase(500000001).times(gas).toString();
+
+    console.log("gas_limit", gas, "Required Fee", amount);
     const { signBytes, txRaw } = createTransaction({
         message: storeCodeMsg.toDirectSign(),
         memo: "",
@@ -102,9 +91,7 @@ export const upload_wasm_code = async function (network: Network, privateKeyHash
     txRaw.setSignaturesList([signature]);
     /** Broadcast transaction */
     let txxResponse = await restClient.broadcast(txRaw);
-    console.log(txxResponse);
     let txResponse = await restClient.waitTxBroadcast(txxResponse.txhash);
-    console.log(`txResponse =>`, txResponse);
     const parsedLogs = parseRawLog(txResponse.raw_log)
 
     const codeIdAttr =

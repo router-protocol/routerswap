@@ -30,26 +30,32 @@ async function main() {
   
   const dexSetupFilePath = "config/dex.json";
   const dexSetup = JSON.parse(fs.readFileSync(dexSetupFilePath, "utf-8"));
-  console.log(dexSetup)
 
+  console.log("\nUploading the routerswap_factory.wasm...");
   const swapFactoryCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
     chainId,
     "../artifacts/routerswap_factory.wasm"
   );
+
+  console.log("\nUploading the routerswap_pair.wasm...");
   const pairCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
     chainId,
     "../artifacts/routerswap_pair.wasm"
   );
+
+  console.log("\nUploading the routerswap_router.wasm...");
   const swapRouterCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
     chainId,
     "../artifacts/routerswap_router.wasm"
   );
+
+  console.log("\nUploading the routerswap_token.wasm...");
   const tokenCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
@@ -61,24 +67,18 @@ async function main() {
     "pair_code_id": parseInt(pairCodeId),
     "token_code_id": parseInt(tokenCodeId)
   });
+  console.log("\nInstantiating the RouterSwap Factory...");
   const swapFactoryAddr = await init_wasm_code(swapFactoryCodeId, "Router Swap Factory", swapFacotryInitMsg);
   console.log("swapFactoryAddr", swapFactoryAddr);
 
   const swapRouterInitMsg = JSON.stringify({
     "routerswap_factory": swapFactoryAddr
   });
+  console.log("\nInstantiating the RouterSwap Router...");
   const swapRouterAddr = await init_wasm_code(swapRouterCodeId, "Router swap Route", swapRouterInitMsg);
   console.log("swapRouteAddr", swapRouterAddr);
 
   const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
-
-  const alice = privateKey.toBech32();
-
-  console.log("admin ->", alice);
-  console.log("RouterSwapFactoryCodeId -> code_id-", swapFactoryCodeId, "addr-", swapFactoryAddr);
-  console.log("RouterSwapPairCodeId -> code_id-", pairCodeId);
-  console.log("RouterSwapRouterCodeId -> code_id-", swapRouterCodeId, "addr-", swapRouterAddr);
-  console.log("TokenCodeId -> code_id-", tokenCodeId);
 
   if (!dexSetup[network]) {
     dexSetup[network] = {};
