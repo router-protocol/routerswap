@@ -18,16 +18,15 @@ async function main() {
   }
 
   const privateKeyHash = process.env.PRIVATE_KEY;
-  const chainId = process.env.CHAIN_ID;
-  if (!chainId) {
-    throw new Error("Please set your CHAIN_ID in the .env file");
-  }
 
   if (!privateKeyHash) {
     throw new Error("Please set your PRIVATE_KEY in the .env file");
   }
 
-  
+  let wasmSuffix = ".wasm";
+  if (process.env.IS_APPLE_CHIPSET == "YES") {
+    wasmSuffix = "-aarch64.wasm"
+  }
   const dexSetupFilePath = "config/dex.json";
   const dexSetup = JSON.parse(fs.readFileSync(dexSetupFilePath, "utf-8"));
 
@@ -35,32 +34,28 @@ async function main() {
   const swapFactoryCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
-    chainId,
-    "../artifacts/routerswap_factory.wasm"
+    "../artifacts/routerswap_factory" + wasmSuffix
   );
 
   console.log("\nUploading the routerswap_pair.wasm...");
   const pairCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
-    chainId,
-    "../artifacts/routerswap_pair.wasm"
+    "../artifacts/routerswap_pair" + wasmSuffix
   );
 
   console.log("\nUploading the routerswap_router.wasm...");
   const swapRouterCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
-    chainId,
-    "../artifacts/routerswap_router.wasm"
+    "../artifacts/routerswap_router" + wasmSuffix
   );
 
   console.log("\nUploading the routerswap_token.wasm...");
   const tokenCodeId = await upload_wasm_code(
     network,
     privateKeyHash,
-    chainId,
-    "../artifacts/routerswap_token.wasm"
+    "../artifacts/routerswap_token" + wasmSuffix
   );
 
   const swapFacotryInitMsg = JSON.stringify({

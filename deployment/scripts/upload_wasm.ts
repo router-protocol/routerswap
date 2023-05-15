@@ -10,6 +10,7 @@ import {
     MsgStoreCode,
     TxGrpcClient,
     TxClientSimulateResponse,
+    getChainInfoForNetwork,
 } from "@routerprotocol/router-chain-sdk-ts";
 import fs from "fs";
 import dotenv from "dotenv";
@@ -18,7 +19,7 @@ import { logs } from "@cosmjs/stargate";
 dotenv.config();
 
 
-export const upload_wasm_code = async function (network: Network, privateKeyHash: string, chainId: string, wasmFilePath: string): Promise<string> {
+export const upload_wasm_code = async function (network: Network, privateKeyHash: string, wasmFilePath: string): Promise<string> {
     const endpoint = getEndpointsForNetwork(network);
 
     const privateKey = PrivateKey.fromPrivateKey(privateKeyHash);
@@ -32,6 +33,8 @@ export const upload_wasm_code = async function (network: Network, privateKeyHash
 
     const restClient = new TxRestClient(endpoint.lcdEndpoint);
     const grpcClient = new TxGrpcClient(endpoint.grpcEndpoint);
+    const chainId = getChainInfoForNetwork(network).chainId;
+
     /** Get Faucet Accounts details */
     const aliceAccount = await new ChainRestAuthApi(
         endpoint.lcdEndpoint

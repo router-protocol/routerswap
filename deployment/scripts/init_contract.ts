@@ -10,6 +10,7 @@ import {
     TxGrpcClient,
     TxClientSimulateResponse,
     MsgInstantiateContract,
+    getChainInfoForNetwork,
 } from "@routerprotocol/router-chain-sdk-ts";
 import dotenv from "dotenv";
 import { parseRawLog } from "@cosmjs/stargate/build/logs";
@@ -25,10 +26,6 @@ if (process.env.NETWORK == "devnet") {
     network = Network.Mainnet
 }
 const privateKeyHash = process.env.PRIVATE_KEY;
-const chainId = process.env.CHAIN_ID;
-if (!chainId) {
-    throw new Error("Please set your CHAIN_ID in the .env file");
-}
 
 if (!privateKeyHash) {
     throw new Error("Please set your PRIVATE_KEY in the .env file");
@@ -45,6 +42,7 @@ const publicKey = privateKeyToPublicKeyBase64(
 
 const restClient = new TxRestClient(endpoint.lcdEndpoint);
 const grpcClient = new TxGrpcClient(endpoint.grpcEndpoint);
+const chainId = getChainInfoForNetwork(network).chainId;
 
 export const init_wasm_code = async function (codeId: string, label: string, instantiateMsg: string): Promise<string> {
     /** Get Faucet Accounts details */

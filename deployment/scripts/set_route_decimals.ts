@@ -18,10 +18,6 @@ async function main() {
     }
 
     const privateKeyHash = process.env.PRIVATE_KEY;
-    const chainId = process.env.CHAIN_ID;
-    if (!chainId) {
-        throw new Error("Please set your CHAIN_ID in the .env file");
-    }
 
     if (!privateKeyHash) {
         throw new Error("Please set your PRIVATE_KEY in the .env file");
